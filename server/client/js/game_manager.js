@@ -1,4 +1,4 @@
-function GameManager(size, InputManager, Actuator, StorageManager, playerID) {
+function GameManager(size, InputManager, Actuator, StorageManager, playerID, socket) {
   this.playerID       = playerID;
   this.size           = size; // Size of the grid
   this.inputManager   = new InputManager(playerID);
@@ -7,9 +7,13 @@ function GameManager(size, InputManager, Actuator, StorageManager, playerID) {
 
   this.startTiles     = 2;
 
-  this.inputManager.on("move", this.move.bind(this));
-  this.inputManager.on("restart", this.restart.bind(this));
-  this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
+  if (this.inputManager){
+      this.inputManager.on("move", this.move.bind(this));
+      this.inputManager.on("restart", this.restart.bind(this));
+      this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
+  }
+
+  this.socket = socket;
 
   this.setup();
 }
@@ -192,6 +196,9 @@ GameManager.prototype.move = function (direction) {
     }
 
     this.actuate();
+
+    // SEND GAME STATE
+    this.socket.emit('move', this.storageManager.getGameState());
   }
 };
 

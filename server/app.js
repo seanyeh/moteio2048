@@ -7,7 +7,7 @@ function Server(port){
     var express = require("express");
     var expressApp = express();
 
-    expressApp.use(express.static('public'));
+    expressApp.use(express.static('client'));
     this.io = require('socket.io').listen(expressApp.listen(port));
     this.io.set('log level', 1); // reduce logging
 
