@@ -1,0 +1,10 @@
+{
+    "name": "moteio2048",
+    "version": "0.0.0",
+    "dependencies":{
+        "express":"latest",
+        "socket.io":"latest",
+        "forever":"latest"
+    }
+}
+
