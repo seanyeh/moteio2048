@@ -15,7 +15,7 @@ function addUser(id){
     }
 
     // Add HTML element
-    var gamediv = $("div").attr("id",id);
+    var gamediv = $("<div></div>").attr("id",id);
     gamediv.append($("#template").html());
     $("#master-container").append(gamediv);
 }
