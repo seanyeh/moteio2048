@@ -14,8 +14,10 @@ function addUser(id){
         gameManager: createGM(id);
     }
 
-
     // Add HTML element
+    var gamediv = $("div").attr("id",id);
+    gamediv.append($("#template").html());
+    $("#master-container").append(gamediv);
 }
 
 socket.emit('getAll',{});
