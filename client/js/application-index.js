@@ -31,17 +31,4 @@ var startGame = function() {
 }
 
 
-
-
-
-
-// Wait till the browser is ready to render the game (avoids glitches)
-//G1 = new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
-// window.requestAnimationFrame(function () {
-//     G1; 
-//     // G2;
-//   new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
-  
-// });
-
  
