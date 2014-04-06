@@ -43,7 +43,7 @@ HTMLActuator.prototype.continueGame = function () {
 };
 
 HTMLActuator.prototype.clearContainer = function (container) {
-  while (container.firstChild) {
+  while (container && container.firstChild) {
     container.removeChild(container.firstChild);
   }
 };
