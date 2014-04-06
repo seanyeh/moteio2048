@@ -19,14 +19,14 @@ function Server(port){
     var self = this;
     self.io.sockets.on('connect', function(socket){
         console.log("Received connection: " + socket);
-        socket.emit('auth',{});
+        socket.emit('auth', {});
 
         socket.on('connect', function(data){
             self.users[socket.id] = {id:socket.id, name:data.name};
         });
 
         socket.on('move', function(data){
-            socket.SENDALL('move',data);
+            self.io.sockets.emit('move',data);
         });
 
         socket.on('start', function(name) {
@@ -36,7 +36,7 @@ function Server(port){
 
         socket.on('disconnect', function() {
             console.log("Disconnect!");
-            socket.SENDALL('disconnect', {id:socket.id});
+            self.io.sockets.emit('disconnect', {id:socket.id});
             delete self.users[socket.id];
         });
     });
