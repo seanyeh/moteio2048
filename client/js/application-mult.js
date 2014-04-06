@@ -9,9 +9,9 @@ function createGM(id){
     return new GameManager(4, null, HTMLActuator, LocalStorageManager, id, null);
 }
 
-function addUser(id){
+function addUser(id, name){
     gameMap[id] = {
-        name: data.name,
+        name: name,
         gameManager: createGM(id),
     }
 
@@ -21,15 +21,17 @@ function addUser(id){
     $("#master-container").append(gamediv);
 }
 
+
+function updateUser(id, gameState){
+    gameMap[id].gameManager.setup(gameState);
+}
+
 socket.emit('getAll',{});
 
 socket.on('allUsers', function(data){
     for (var id in data){
-        gameMap[id] = {
-            name: data.name,
-            gameManager: createGM(id),
-        }
-        addUser(id);
+        addUser(id, data.name);
+        updateUser(id, data[id].gameState);
     }
 
     //Wait till the browser is ready to render the game (avoids glitches)
@@ -41,15 +43,11 @@ socket.on('allUsers', function(data){
 });
 
 socket.on('move', function(data){
-    var game = gameMap[data.id];
-
-    var gameState = data.gameState;
-    game.setup(gameState);
+    updateUser(data.id, data.gameState);
 });
 
 
 socket.on('start', function(user){
-
     addUser(user.id);
 });
 
