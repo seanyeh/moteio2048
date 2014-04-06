@@ -12,7 +12,7 @@ function createGM(id){
 function addUser(id, name){
     // Add HTML element
     var gamediv = $("<div></div>").attr("id","id_" + id);
-    gamediv.append($("<h3></h3>").text(name));
+    gamediv.append($("<h3></h3>").text("Player: " + name));
     gamediv.append($("#template").html());
     $("#master-container").append(gamediv);
     console.log("add user! id:" + id + " name:" + name);

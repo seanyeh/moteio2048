@@ -29,4 +29,9 @@ var startGame = function() {
 };
 
 
- 
+$(document).ready(function(){
+    $("#startbutton").click(function(){
+        startGame();
+        $("#name").hide();
+    });
+});
