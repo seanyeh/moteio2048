@@ -10,16 +10,20 @@ function createGM(id){
 }
 
 function addUser(id, name){
+    // Add HTML element
+    var gamediv = $("<div></div>").attr("id","id_" + id);
+    gamediv.append($("<h3></h3>").text(name));
+    gamediv.append($("#template").html());
+    $("#master-container").append(gamediv);
     console.log("add user! id:" + id + " name:" + name);
+    console.log("tilecontainer:" + $("#id_" + id + " .tile-container"));
+
+
     gameMap[id] = {
         name: name,
         gameManager: createGM(id),
-    }
+    };
 
-    // Add HTML element
-    var gamediv = $("<div></div>").attr("id",id);
-    gamediv.append($("#template").html());
-    $("#master-container").append(gamediv);
 }
 
 
@@ -30,8 +34,9 @@ function updateUser(id, gameState){
 socket.emit('getAll',{});
 
 socket.on('allUsers', function(data){
+    console.log(JSON.stringify(data));
     for (var id in data){
-        addUser(id, data.name);
+        addUser(id, data[id].name);
         updateUser(id, data[id].gameState);
     }
 
@@ -44,12 +49,14 @@ socket.on('allUsers', function(data){
 });
 
 socket.on('move', function(data){
+    console.log("recv move:" + JSON.stringify(data));
     updateUser(data.id, data.gameState);
 });
 
 
-socket.on('start', function(user){
-    addUser(user.id);
+socket.on('start', function(data){
+    console.log("recv start");
+    addUser(data.id, data.name);
 });
 
 

@@ -1,8 +1,8 @@
 var http = require('http');
 
-function User(socketID) {
+function User(socketID, name) {
     this.socketID = socketID;
-    this.name = '';
+    this.name = name;
     this.gameState;
 }
 
@@ -26,21 +26,27 @@ function Server(port){
     var self = this;
     self.io.sockets.on('connection', function(socket){
         console.log("Received connection: " + socket);
-        self.users[socket.id] = new User(socket.id);
+        // self.users[socket.id] = new User(socket.id);
 
         socket.on('move', function(data){
-            self.io.sockets.emit('move', {id:socket.id, gameState:gameState});
+            if (!self.users[socket.id]){
+                return;
+            }
+
+            self.io.sockets.emit('move', {id:socket.id, gameState:data});
             self.users[socket.id].gameState = data;
             console.log('move',self.users);
         });
 
         socket.on('start', function(name) {
-            self.users[socket.id].name = name;
-            self.io.sockets.emit('start', self.users[socket.id]);
+            console.log("Received start. name:"+name);
+            self.users[socket.id] = new User(socket.id, name);
+            self.io.sockets.emit('start', {id:socket.id, name: name});
             console.log(name + ' started');
         });
 
         socket.on('getAll', function() {
+            console.log("getAll:");
             socket.emit('allUsers', self.users);
         });
 

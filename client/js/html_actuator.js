@@ -1,10 +1,12 @@
 function HTMLActuator(playerID) {
   this.playerID = playerID || 0;
-  // this.tileContainer    = document.querySelector(".tile-container");
-  this.tileContainer    = document.getElementsByClassName("tile-container")[this.playerID];
-  this.scoreContainer   = document.querySelector(".score-container");
-  this.bestContainer    = document.querySelector(".best-container");
-  this.messageContainer = document.querySelector(".game-message");
+  
+  var id = "#id_" + playerID + " ";
+  this.tileContainer    = document.querySelector(id + " .tile-container") ||
+      document.querySelector(".tile-container");
+  this.scoreContainer   = document.querySelector(id + ".score-container");
+  this.bestContainer    = document.querySelector(id + ".best-container");
+  this.messageContainer = document.querySelector(id + ".game-message");
 
   this.score = 0;
 }
@@ -106,6 +108,7 @@ HTMLActuator.prototype.positionClass = function (position) {
 };
 
 HTMLActuator.prototype.updateScore = function (score) {
+  if (!this.scoreContainer){ return; }
   this.clearContainer(this.scoreContainer);
 
   var difference = score - this.score;
@@ -123,6 +126,7 @@ HTMLActuator.prototype.updateScore = function (score) {
 };
 
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
+  if (!this.bestContainer){ return; }
   this.bestContainer.textContent = bestScore;
 };
 

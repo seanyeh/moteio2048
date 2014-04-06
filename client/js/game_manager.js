@@ -6,7 +6,8 @@ function GameManager(size, InputManager, Actuator, StorageManager, playerID, soc
 
   this.startTiles     = 2;
 
-  if (this.inputManager){
+    console.log("Loading inputmanager");
+  if (InputManager){
       this.inputManager   = new InputManager(playerID);
       this.inputManager.on("move", this.move.bind(this));
       this.inputManager.on("restart", this.restart.bind(this));

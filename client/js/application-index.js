@@ -7,11 +7,11 @@ var Connection = function() {
 
 	this.connect = function(name) {
 		socket.emit('start', name);
-	}
+	};
 
 	this.sendMove = function(gameState) {
 		socket.emit('move', gameState);
-	}
+	};
 
 };
 var connection = new Connection();
@@ -23,12 +23,10 @@ var startGame = function() {
 	$('#player-name').html('Player: ' + name);
 	$('#game-player-container').show();
 
-
-	window.requestAnimationFrame(function () {
-		new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
-	});
 	connection.connect(name);
-}
+
+    G = new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
+};
 
 
  
