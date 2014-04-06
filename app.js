@@ -36,12 +36,13 @@ function Server(port){
 
         socket.on('start', function(name) {
             self.users[socket.id].name = name;
+            self.io.sockets.emit('start', self.users[socket.id]);
             console.log(name + ' started');
         });
 
         socket.on('getAll', function() {
             socket.emit('allUsers', self.users);
-        })
+        });
 
 
         socket.on('disconnect', function() {

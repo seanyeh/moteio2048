@@ -1,46 +1,44 @@
 
 /* application.js for index_mult page */
 
-var Connection = function() {
+var gameMap = {};
+var socket = io.connect("http://162.243.99.214:9501");
 
-	var socket = io.connect("http://127.0.0.1:9501");
-
-	socket.on('start', name);
-
-	this.connect = function(name) {
-		socket.emit('start', name);
-	}
-
-	this.sendMove = function(gameState) {
-		socket.emit('move', gameState);
-	}
-
-};
-var connection = new Connection();
-
-
-var startGame = function() {
-	var name = $('#name-input').val();
-	console.log('startGame name', name)
-	$('#game-player-container').show();
-
-
-	window.requestAnimationFrame(function () {
-		new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
-	});
-	connection.connect(name);
+function createGM(id){
+    return new GameManager(4, null, HTMLActuator, LocalStorageManager, id);
 }
 
+socket.emit('getAll',{});
 
-var gameMap = {};
+socket.on('allUsers', function(data){
+    for (var id in data){
+        gameMap[id] = {
+            name: data.name,
+            gameManager: createGM(id);
+        }
+    }
 
-
-
-//Wait till the browser is ready to render the game (avoids glitches)
-G1 = new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
-window.requestAnimationFrame(function () {
-    G1; 
-    // G2;
-  new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, 0, connection);
-  
+    //Wait till the browser is ready to render the game (avoids glitches)
+    window.requestAnimationFrame(function () {
+        for (var id: gameMap){
+            gameMap[id].gameManager;
+        }
+    });
 });
+
+socket.on('move', function(data){
+    var game = gameMap[data.id];
+
+    var gameState = data.gameState;
+    game.setup(gameState);
+});
+
+
+socket.on('start', function(user){
+    gameMap[user.id] = {
+        user.name,
+        null
+    };
+});
+
+
