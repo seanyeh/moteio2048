@@ -1,5 +1,12 @@
 var http = require('http');
 
+function User(socketID, name) {
+    this.socketID = socketID;
+    this.name = name;
+    this.gameState;
+}
+
+
 function Server(port){
     var fs = require('fs');
 
@@ -10,7 +17,7 @@ function Server(port){
     this.io = require('socket.io').listen(expressApp.listen(port));
     this.io.set('log level', 1); // reduce logging
 
-    this.users = {};
+    this.users = {}; // {id: User}
 
 
     /**
@@ -22,7 +29,7 @@ function Server(port){
         socket.emit('auth',{});
 
         socket.on('connect', function(data){
-            self.users[socket.id] = {id:socket.id, name:data.name};
+            self.users[socket.id] = new User(socket.id, data.name);
         });
 
         socket.on('move', function(data){
