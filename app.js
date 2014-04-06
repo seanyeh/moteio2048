@@ -31,17 +31,18 @@ function Server(port){
         socket.on('move', function(data){
             self.io.sockets.emit('move', {id:socket.id, gameState:gameState});
             self.users[socket.id].gameState = data;
-            console.log('move',self.users)
+            console.log('move',self.users);
         });
 
         socket.on('start', function(name) {
             self.users[socket.id].name = name;
+            self.io.sockets.emit('start', self.users[socket.id]);
             console.log(name + ' started');
         });
 
         socket.on('getAll', function() {
             socket.emit('allUsers', self.users);
-        })
+        });
 
 
         socket.on('disconnect', function() {
