@@ -26,19 +26,20 @@ function Server(port){
     var self = this;
     self.io.sockets.on('connection', function(socket){
         console.log("Received connection: " + socket);
-        socket.emit('auth', {});
-
-        socket.on('connect', function(data){
-            self.users[socket.id] = new User(socket.id, data.name);
-        });
 
         socket.on('move', function(data){
-            self.io.sockets.emit('move',data);
+            self.io.sockets.emit('move', data);
+            self.users[socket.id].gameState = data;
         });
 
         socket.on('start', function(name) {
+            self.users[socket.id] = new User(socket.id, name);
             console.log(name + ' started');
         });
+
+        socket.on('getAll', function() {
+            socket.emit('allUsers', self.users);
+        })
 
 
         socket.on('disconnect', function() {
