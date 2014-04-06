@@ -24,7 +24,7 @@ function Server(port){
      * Socket events
      */
     var self = this;
-    self.io.sockets.on('connect', function(socket){
+    self.io.sockets.on('connection', function(socket){
         console.log("Received connection: " + socket);
         socket.emit('auth', {});
 
