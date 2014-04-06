@@ -21,6 +21,15 @@ $game-container-background: #bbada0;
 
 $transition-speed: 100ms;
 
+ul {
+  list-style-type: none;
+}
+
+li {
+  float:left;
+  padding: 10px;
+}
+
 html, body {
   margin: 0;
   padding: 0;

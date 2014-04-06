@@ -1,4 +1,11 @@
 @import url(fonts/clear-sans.css);
+ul {
+  list-style-type: none; }
+
+li {
+  float: left;
+  padding: 10px; }
+
 html, body {
   margin: 0;
   padding: 0;
