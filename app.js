@@ -1,8 +1,8 @@
 var http = require('http');
 
-function User(socketID, name) {
+function User(socketID) {
     this.socketID = socketID;
-    this.name = name;
+    this.name = '';
     this.gameState;
 }
 
@@ -26,14 +26,16 @@ function Server(port){
     var self = this;
     self.io.sockets.on('connection', function(socket){
         console.log("Received connection: " + socket);
+        self.users[socket.id] = new User(socket.id);
 
         socket.on('move', function(data){
             self.io.sockets.emit('move', data);
             self.users[socket.id].gameState = data;
+            console.log('move',self.users)
         });
 
         socket.on('start', function(name) {
-            self.users[socket.id] = new User(socket.id, name);
+            self.users[socket.id].name = name;
             console.log(name + ' started');
         });
 

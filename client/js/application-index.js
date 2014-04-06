@@ -20,6 +20,7 @@ var connection = new Connection();
 var startGame = function() {
 	var name = $('#name-input').val();
 	console.log('startGame name', name)
+	$('#player-name').html('Player: ' + name);
 	$('#game-player-container').show();
 
 
