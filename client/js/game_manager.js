@@ -1,13 +1,13 @@
 function GameManager(size, InputManager, Actuator, StorageManager, playerID, socket) {
   this.playerID       = playerID;
   this.size           = size; // Size of the grid
-  this.inputManager   = new InputManager(playerID);
   this.storageManager = new StorageManager;
   this.actuator       = new Actuator(playerID);
 
   this.startTiles     = 2;
 
   if (this.inputManager){
+      this.inputManager   = new InputManager(playerID);
       this.inputManager.on("move", this.move.bind(this));
       this.inputManager.on("restart", this.restart.bind(this));
       this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));

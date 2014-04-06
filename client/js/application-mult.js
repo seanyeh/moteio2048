@@ -6,7 +6,7 @@ var socket = io.connect("http://162.243.99.214:9501");
 
 
 function createGM(id){
-    return new GameManager(4, null, HTMLActuator, LocalStorageManager, id);
+    return new GameManager(4, null, HTMLActuator, LocalStorageManager, id, null);
 }
 
 function addUser(id){
