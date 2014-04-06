@@ -3,7 +3,7 @@
 
 var Connection = function() {
 
-	var socket = io.connect("http://127.0.0.1:9501");
+	var socket = io.connect("http://162.243.99.214:9501");
 
 	this.connect = function(name) {
 		socket.emit('start', name);
