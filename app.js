@@ -29,7 +29,7 @@ function Server(port){
         self.users[socket.id] = new User(socket.id);
 
         socket.on('move', function(data){
-            self.io.sockets.emit('move', data);
+            self.io.sockets.emit('move', {id:socket.id, gameState:gameState});
             self.users[socket.id].gameState = data;
             console.log('move',self.users)
         });
