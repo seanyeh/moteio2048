@@ -12,7 +12,7 @@ function createGM(id){
 function addUser(id){
     gameMap[id] = {
         name: data.name,
-        gameManager: createGM(id);
+        gameManager: createGM(id),
     }
 
     // Add HTML element
@@ -49,14 +49,8 @@ socket.on('move', function(data){
 
 
 socket.on('start', function(user){
-<<<<<<< HEAD
-    gameMap[user.id] = {
-        user.name,
-        null
-    };
-=======
+
     addUser(user.id);
->>>>>>> 386d45ce3fa5c3f18892c85b76b0433745dfaf0d
 });
 
 
