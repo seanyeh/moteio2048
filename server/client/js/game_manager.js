@@ -198,7 +198,8 @@ GameManager.prototype.move = function (direction) {
     this.actuate();
 
     // SEND GAME STATE
-    this.socket.emit('move', this.storageManager.getGameState());
+    this.socket.sendMove(this.storageManager.getGameState());
+    //this.socket.emit('move', this.storageManager.getGameState());
   }
 };
 

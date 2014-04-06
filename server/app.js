@@ -1,5 +1,4 @@
 var http = require('http');
-var https = require('https');
 
 function Server(port){
     var fs = require('fs');
@@ -28,6 +27,10 @@ function Server(port){
 
         socket.on('move', function(data){
             socket.SENDALL('move',data);
+        });
+
+        socket.on('start', function(name) {
+            console.log(name + ' started');
         });
 
 
