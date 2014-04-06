@@ -14,13 +14,13 @@ socket.on('allUsers', function(data){
     for (var id in data){
         gameMap[id] = {
             name: data.name,
-            gameManager: createGM(id);
+            gameManager: createGM(id),
         }
     }
 
     //Wait till the browser is ready to render the game (avoids glitches)
     window.requestAnimationFrame(function () {
-        for (var id: gameMap){
+        for (var id in gameMap){
             gameMap[id].gameManager;
         }
     });

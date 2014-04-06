@@ -18,6 +18,8 @@
   <script src="/js/application-mult.js"></script>
 </head>
 <body>
+
+
   <div class="container">
     <div class="heading">
       <h1 class="title">2048</h1>
@@ -32,7 +34,15 @@
       <a class="restart-button">New Game</a>
     </div>
 
-    <div class="game-container">
+
+
+
+<div id='master-container'>
+
+  <div style='display:none' class='player' id='template'>
+  <h3>PLAYER: PLAYER NAME</h3>
+
+    <div class="game-container" id='game-id'>
       <div class="game-message">
         <p></p>
         <div class="lower">
@@ -72,6 +82,10 @@
 
       </div>
     </div>
+
+  </div> <!-- player -->
+
+</div> <!-- master-container -->
 
   <script src="js/bind_polyfill.js"></script>
   <script src="js/classlist_polyfill.js"></script>
