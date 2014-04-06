@@ -14,7 +14,7 @@ function addUser(id, name){
     var gamediv = $("<div></div>").attr("id","id_" + id);
     gamediv.append($("<h3></h3>").text("Player: " + name));
     gamediv.append($("#template").html());
-    $("#master-container").append(gamediv);
+    $("#master-container").append($("<li></li>").append(gamediv));
     console.log("add user! id:" + id + " name:" + name);
     console.log("tilecontainer:" + $("#id_" + id + " .tile-container"));
 
