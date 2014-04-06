@@ -8,14 +8,21 @@ function createGM(id){
     return new GameManager(4, null, HTMLActuator, LocalStorageManager, id);
 }
 
+function addUser(id){
+    gameMap[id] = {
+        name: data.name,
+        gameManager: createGM(id);
+    }
+
+
+    // Add HTML element
+}
+
 socket.emit('getAll',{});
 
 socket.on('allUsers', function(data){
     for (var id in data){
-        gameMap[id] = {
-            name: data.name,
-            gameManager: createGM(id);
-        }
+        addUser(id);
     }
 
     //Wait till the browser is ready to render the game (avoids glitches)
@@ -35,10 +42,7 @@ socket.on('move', function(data){
 
 
 socket.on('start', function(user){
-    gameMap[user.id] = {
-        user.name,
-        null
-    };
+    addUser(user.id);
 });
 
 
