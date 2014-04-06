@@ -10,6 +10,7 @@ function createGM(id){
 }
 
 function addUser(id, name){
+    console.log("add user! id:" + id + " name:" + name);
     gameMap[id] = {
         name: name,
         gameManager: createGM(id),
